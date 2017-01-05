@@ -10,7 +10,8 @@ before_install:
   - docker build -t yukinying/chrome-headless-browser .
 
 script:
-  - docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable yukinying/chrome-headless-browser --version
+  - export VERSION=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable yukinying/chrome-headless-browser --version | grep -Po '(?<=Google Chrome )[^ ]+'`
+  - echo $VERSION
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
