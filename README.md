@@ -1,14 +1,15 @@
-# chrome-headless-browser-docker 
+# chrome-headless-browser-docker
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser.svg)]()
+[![Build Status](https://travis-ci.org/yukinying/chrome-headless-browser-docker.svg?branch=master)](https://travis-ci.org/yukinying/chrome-headless-browser-docker)
 
 This docker image contain the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
 
 Dockerfile is located in https://github.com/yukinying/chrome-headless-browser-docker/blob/master/Dockerfile.
 
-Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub. 
+Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub.
 
---- 
+---
 
 ## How to run the container in Linux:
 ```
@@ -18,9 +19,9 @@ docker run -it -p=127.0.0.1:9222:9222 yukinying/chrome-headless-browser \
 
 ## How to run the container in OSX:
 
-Currently, there is a user namespace issue in OSX that generates this error: 
+Currently, there is a user namespace issue in OSX that generates this error:
 ```
-Failed to move to new namespace: PID namespaces supported, Network namespace supported, 
+Failed to move to new namespace: PID namespaces supported, Network namespace supported,
 but failed: errno = Operation not permitted
 ```
 
