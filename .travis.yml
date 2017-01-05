@@ -5,16 +5,20 @@ services:
 
 language: bash
 
+env:
+  - REPO=yukinying/chrome-headless-browser
+
 before_install:
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
   - docker build -t yukinying/chrome-headless-browser .
 
 script:
   - export VERSION=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable yukinying/chrome-headless-browser --version | grep -Po '(?<=Google Chrome )[^ ]+'`
-  - echo $VERSION
+  - docker tag $REPO $REPO:latest
+  - docker tag $REPO $REPO:$VERSION
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push yukinying/chrome-headless-browser;
+    docker push $REPO;
     fi
