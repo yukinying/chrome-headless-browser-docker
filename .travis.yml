@@ -3,12 +3,11 @@ sudo: required
 services:
   - docker
 
-language: go
-
-go:
-  - '1.5'
+language: bash
 
 before_install:
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb 
   - docker build -t yukinying/chrome-headless-browser-docker .
 
+script:
+  - docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable yukinying/chrome-headless-browser --version
