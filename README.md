@@ -8,19 +8,23 @@ Dockerfile is located in https://github.com/yukinying/chrome-headless-browser-do
 
 Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub. 
 
-How to run the container in Linux:
+--- 
+
+## How to run the container in Linux:
 ```
 docker run -it -p=127.0.0.1:9222:9222 yukinying/chrome-headless-browser \
   https://www.facebook.com
 ```
 
-However, there seems to be a user namespace issue in OSX that may generate this error: 
+## How to run the container in OSX:
+
+Currently, there is a user namespace issue in OSX that generates this error: 
 ```
 Failed to move to new namespace: PID namespaces supported, Network namespace supported, 
 but failed: errno = Operation not permitted
 ```
 
-There are two mitigations, but none of them are ideal:
+There are two mitigations, but none of them are ideal as it gives the container some special capabilities:
 
 1. Use a special seccomp profile, as stated in https://twitter.com/jessfraz/status/681934414687801345
 ```
