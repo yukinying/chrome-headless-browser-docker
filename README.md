@@ -1,4 +1,6 @@
-# chrome-headless-browser-docker
+# chrome-headless-browser-docker 
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser.svg)]()
 
 This docker image contain the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
 
