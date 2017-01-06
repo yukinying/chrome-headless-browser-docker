@@ -1,5 +1,8 @@
 # chrome-headless-browser-docker
 
+This repository contains two docker builds.
+
+## Chrome Headless Browser
 [![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser.svg)]()
 [![Build Status](https://travis-ci.org/yukinying/chrome-headless-browser-docker.svg?branch=master)](https://travis-ci.org/yukinying/chrome-headless-browser-docker)
 
@@ -8,6 +11,11 @@ This docker image contain the Linux Dev channel Chromium (https://www.chromium.o
 Dockerfile is located in https://github.com/yukinying/chrome-headless-browser-docker/blob/master/Dockerfile.
 
 Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub.
+
+## Chrome Headless Browser with Chrome Driver
+
+Credits to SeleniumHQ https://github.com/SeleniumHQ/docker-selenium. The Dockerfile and configuration are taken from their repository, with modification to use google-chrome-unstable and removing unnecessary dependencies.
+
 
 ---
 
