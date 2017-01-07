@@ -6,23 +6,21 @@ services:
 language: bash
 
 env:
-  - REPO1=yukinying/chrome-headless-browser REPO2=yukinying/chrome-headless-webdriver
+  - REPO=yukinying/chrome-headless-browser DIR=chrome
+  - REPO=yukinying/chrome-headless-webdriver DIR=chromedriver
 
 before_install:
-  - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO1 --version | grep -Po '(?<=Google Chrome )[^ ]+'`
+  - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
-  - docker build -t $REPO1 chrome
-  - docker build -t $REPO2 chromedriver
+  - docker build -t $REPO $DIR
 
 script:
-  - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO1 --version | grep -Po '(?<=Google Chrome )[^ ]+'`
-  - docker tag $REPO1 $REPO1:latest
-  - docker tag $REPO1 $REPO1:$VERSION1
-  - docker tag $REPO2 $REPO2:latest
-  - docker tag $REPO2 $REPO2:$VERSION1
+  - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
+  - docker tag $REPO $REPO:latest
+  - docker tag $REPO $REPO:$VERSION1
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push $REPO1;
+    docker push $REPO;
     fi
