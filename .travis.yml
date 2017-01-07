@@ -16,8 +16,10 @@ before_install:
 
 script:
   - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO1 --version | grep -Po '(?<=Google Chrome )[^ ]+'`
-  - docker tag $REPO1 $REPO:latest
-  - docker tag $REPO1 $REPO:$VERSION1
+  - docker tag $REPO1 $REPO1:latest
+  - docker tag $REPO1 $REPO1:$VERSION1
+  - docker tag $REPO2 $REPO2:latest
+  - docker tag $REPO2 $REPO2:$VERSION1
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
