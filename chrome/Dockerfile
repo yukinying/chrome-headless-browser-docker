@@ -5,7 +5,9 @@ FROM debian:stable-slim
 MAINTAINER Albert Yu <yukinying@gmail.com>
 
 RUN apt-get update -qqy \
-  && apt-get -qqy install wget ca-certificates apt-transport-https \
+  && apt-get -qqy install \
+       wget ca-certificates apt-transport-https \
+       ttf-arphic-uming ttf-wqy-zenhei ttf-sazanami-mincho ttf-sazanami-gothic ttf-unfonts-core \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
