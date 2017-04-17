@@ -5,10 +5,11 @@ MAINTAINER Albert Yu <yukinying@gmail.com>
 USER root
 
 RUN mkdir -p /usr/share/man/man1 \
-  && echo "deb https://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list \
+  # && echo "deb https://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list \
+  && echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
-    openjdk-8-jre-headless \
+    -t jessie-backports openjdk-8-jre-headless \
     unzip \
     wget \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
@@ -18,13 +19,13 @@ RUN mkdir -p /usr/share/man/man1 \
 #==========
 
 RUN  mkdir -p /opt/selenium \
-  && wget --no-verbose https://selenium-release.storage.googleapis.com/3.0/selenium-server-standalone-3.0.1.jar -O /opt/selenium/selenium-server-standalone.jar
+  && wget --no-verbose https://selenium-release.storage.googleapis.com/3.3/selenium-server-standalone-3.3.1.jar -O /opt/selenium/selenium-server-standalone.jar
 
 
 #==================
 # Chrome webdriver
 #==================
-ARG CHROME_DRIVER_VERSION=2.27
+ARG CHROME_DRIVER_VERSION=2.9
 RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
   && rm -rf /opt/selenium/chromedriver \
   && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
