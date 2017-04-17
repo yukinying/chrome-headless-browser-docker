@@ -7,7 +7,7 @@ language: bash
 
 env:
   - REPO=yukinying/chrome-headless-browser DIR=chrome
-#  - REPO=yukinying/chrome-headless-webdriver DIR=chromedriver
+  - REPO=yukinying/chrome-headless-webdriver DIR=chromedriver
 
 before_install:
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
