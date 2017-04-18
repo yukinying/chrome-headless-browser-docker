@@ -13,9 +13,9 @@ Dockerfile is located in https://github.com/yukinying/chrome-headless-browser-do
 
 Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub.
 
-## Chrome Headless Browser with Chrome Driver
+## Chrome Headless Browser with Chrome Driver in Selenium
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-webdriver.svg)](https://hub.docker.com/r/yukinying/chrome-headless-webdriver/tags/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-selenium.svg)](https://hub.docker.com/r/yukinying/chrome-headless-selenium/tags/)
 
 Credits to SeleniumHQ https://github.com/SeleniumHQ/docker-selenium. The Dockerfile and configuration are taken from their repository, with modification to use google-chrome-unstable and removing unnecessary dependencies.
 
@@ -26,7 +26,7 @@ Credits to SeleniumHQ https://github.com/SeleniumHQ/docker-selenium. The Dockerf
 To run the container with remote-debugging:
 ```
 docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --cap-add=SYS_ADMIN \
-  yukinying/chrome-headless-browser 
+  yukinying/chrome-headless-browser
 ```
 
 To run the container with other options, e.g. `--dump-dom`:
@@ -52,7 +52,7 @@ There are two mitigations, but none of them are ideal as it gives the container 
 1. Use a special seccomp profile, as stated in https://twitter.com/jessfraz/status/681934414687801345
 ```
 docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --security-opt seccomp:/path/to/chrome.json \
-  yukinying/chrome-headless-browser 
+  yukinying/chrome-headless-browser
 ```
 
 2. Use CAP_SYS_ADMIN
@@ -63,9 +63,8 @@ docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --name
 
 ## Getting More Verbose Output
 
-Try adding the following flag: `--enable-logging --v=10000` 
+Try adding the following flag: `--enable-logging --v=10000`
 
 ## Headless Shell
 
 If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build
-

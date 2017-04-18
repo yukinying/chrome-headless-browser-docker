@@ -34,20 +34,22 @@ RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.stor
   && chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
   && ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 
-#========================
-# Selenium Configuration
-#========================
-ENV NODE_MAX_INSTANCES 1
-ENV NODE_MAX_SESSION 1
-ENV NODE_REGISTER_CYCLE 5000
-COPY generate_config /opt/selenium/generate_config
-RUN chmod +x /opt/selenium/generate_config
+# DISABLED Selenium Configuration as it is for Node setup
+# #========================
+# # Selenium Configuration
+# #========================
+# ENV NODE_MAX_INSTANCES 1
+# ENV NODE_MAX_SESSION 1
+# ENV NODE_REGISTER_CYCLE 5000
+# COPY generate_config /opt/selenium/generate_config
+# RUN chmod +x /opt/selenium/generate_config
+# RUN /opt/selenium/generate_config > /opt/selenium/config.json
 
-# #=================================
-# # Chrome Launch Script Modication
-# #=================================
-# COPY chrome_launcher.sh /opt/google/chrome/google-chrome
-# RUN chmod +x /opt/google/chrome/google-chrome
+#=================================
+# Chrome Launch Script Modication
+#=================================
+COPY chrome_launcher.sh /opt/google/chrome/google-chrome
+RUN chmod +x /opt/google/chrome/google-chrome
 
 RUN chown -R headless:headless /opt/selenium
 
