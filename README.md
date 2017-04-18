@@ -15,7 +15,7 @@ Currently, this image is built in a machine that pushes the image in regular int
 
 ## Chrome Headless Browser with Chrome Driver in Selenium
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-selenium.svg)](https://hub.docker.com/r/yukinying/chrome-headless-selenium/tags/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser-selenium.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser-selenium/tags/)
 
 Credits to SeleniumHQ https://github.com/SeleniumHQ/docker-selenium. The Dockerfile and configuration are taken from their repository, with modification to use google-chrome-unstable and removing unnecessary dependencies.
 
@@ -64,6 +64,14 @@ docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --name
 ## Getting More Verbose Output
 
 Try adding the following flag: `--enable-logging --v=10000`
+
+## How to run the container with Selenium:
+
+```
+docker run -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
+  -p=127.0.0.1:4444:4444 \
+  yukinying/chrome-headless-browser-selenium
+```
 
 ## Headless Shell
 
