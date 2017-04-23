@@ -9,8 +9,6 @@ This repository contains two docker builds.
 
 This docker image contain the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
 
-Dockerfile is located in https://github.com/yukinying/chrome-headless-browser-docker/blob/master/Dockerfile.
-
 Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub.
 
 ## Chrome Headless Browser with Chrome Driver in Selenium
