@@ -9,8 +9,6 @@ This repository contains two docker builds.
 
 This docker image contain the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
 
-Currently, this image is built in a machine that pushes the image in regular interval and push to dockerhub.
-
 ## Chrome Headless Browser with Chrome Driver in Selenium
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser-selenium.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser-selenium/tags/)
@@ -73,4 +71,4 @@ docker run -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
 
 ## Headless Shell
 
-If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build
+If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build. 
