@@ -34,16 +34,27 @@ RUN wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.stor
   && chmod 755 /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION \
   && ln -fs /opt/selenium/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
 
-# DISABLED Selenium Configuration as it is for Node setup
-# #========================
-# # Selenium Configuration
-# #========================
-# ENV NODE_MAX_INSTANCES 1
-# ENV NODE_MAX_SESSION 1
-# ENV NODE_REGISTER_CYCLE 5000
-# COPY generate_config /opt/selenium/generate_config
-# RUN chmod +x /opt/selenium/generate_config
-# RUN /opt/selenium/generate_config > /opt/selenium/config.json
+#========================
+# Selenium Configuration
+#========================
+# As integer, maps to "maxInstances"
+ENV NODE_MAX_INSTANCES 1
+# As integer, maps to "maxSession"
+ENV NODE_MAX_SESSION 1
+# In milliseconds, maps to "registerCycle"
+ENV NODE_REGISTER_CYCLE 5000
+# In milliseconds, maps to "nodePolling"
+ENV NODE_POLLING 5000
+# In milliseconds, maps to "unregisterIfStillDownAfter"
+ENV NODE_UNREGISTER_IF_STILL_DOWN_AFTER 60000
+# As integer, maps to "downPollingLimit"
+ENV NODE_DOWN_POLLING_LIMIT 2
+# As string, maps to "applicationName"
+ENV NODE_APPLICATION_NAME ""
+
+COPY generate_config /opt/selenium/generate_config
+RUN chmod +x /opt/selenium/generate_config
+RUN /opt/selenium/generate_config > /opt/selenium/config.json
 
 #=================================
 # Chrome Launch Script Modication
@@ -58,6 +69,6 @@ USER headless
 # https://github.com/SeleniumHQ/docker-selenium/issues/87
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-ENTRYPOINT java -jar /opt/selenium/selenium-server-standalone.jar
+ENTRYPOINT ["java", "-jar", "/opt/selenium/selenium-server-standalone.jar"]
 
 EXPOSE 4444
