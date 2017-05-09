@@ -63,12 +63,27 @@ Try adding the following flag: `--enable-logging --v=10000`
 
 ## How to run the container with Selenium:
 
+Standalone mode:
 ```
 docker run -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
   -p=127.0.0.1:4444:4444 \
   yukinying/chrome-headless-browser-selenium
 ```
 
+Node mode:
+```
+# First, start your hub.
+docker run -it --rm --name hub \
+  -p=127.0.0.1:4444:4444 \
+  selenium/hub
+
+# Then run your node by registrating it to the hub
+docker run -it --rm --name node-chrome --link hub:hub --cap-add=SYS_ADMIN \
+  yukinying/chrome-headless-browser-selenium \
+  -role node -hub http://hub:4444/grid/register \
+  -nodeConfig /opt/selenium/config.json
+```
+
 ## Headless Shell
 
-If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build. 
+If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build.
