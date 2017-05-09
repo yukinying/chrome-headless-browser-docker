@@ -77,7 +77,7 @@ docker run -it --rm --name hub \
   -p=127.0.0.1:4444:4444 \
   selenium/hub
 
-# Then run your node by registrating it to the hub
+# Then run your node by registering it to the hub
 docker run -it --rm --name node-chrome --link hub:hub --cap-add=SYS_ADMIN \
   yukinying/chrome-headless-browser-selenium \
   -role node -hub http://hub:4444/grid/register \
