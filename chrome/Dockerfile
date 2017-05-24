@@ -4,6 +4,8 @@ FROM debian:stable-slim
 
 MAINTAINER Albert Yu <yukinying@gmail.com>
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update -qqy \
   && apt-get -qqy install \
        wget ca-certificates apt-transport-https \

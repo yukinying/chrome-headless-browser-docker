@@ -2,6 +2,8 @@ FROM yukinying/chrome-headless-browser:latest
 
 MAINTAINER Albert Yu <yukinying@gmail.com>
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 USER root
 
 RUN mkdir -p /usr/share/man/man1 \
