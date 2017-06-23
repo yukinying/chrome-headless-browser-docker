@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qqy \
   && apt-get -qqy install \
        wget ca-certificates apt-transport-https \
-       ttf-wqy-zenhei ttf-unfonts-core \
+       ttf-wqy-zenhei \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
