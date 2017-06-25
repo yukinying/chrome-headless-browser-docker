@@ -21,13 +21,13 @@ Credits to SeleniumHQ https://github.com/SeleniumHQ/docker-selenium. The Dockerf
 
 To run the container with remote-debugging:
 ```
-docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --cap-add=SYS_ADMIN \
+docker run --init -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --cap-add=SYS_ADMIN \
   yukinying/chrome-headless-browser
 ```
 
 To run the container with other options, e.g. `--dump-dom`:
 ```
-docker run -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
+docker run --init -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
   --entrypoint=/usr/bin/google-chrome-unstable \
   yukinying/chrome-headless-browser \
   --headless --disable-gpu --dump-dom https://www.facebook.com
@@ -47,13 +47,13 @@ There are two mitigations, but none of them are ideal as it gives the container 
 
 1. Use a special seccomp profile, as stated in https://twitter.com/jessfraz/status/681934414687801345
 ```
-docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --security-opt seccomp:/path/to/chrome.json \
+docker run --init -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --security-opt seccomp:/path/to/chrome.json \
   yukinying/chrome-headless-browser
 ```
 
 2. Use CAP_SYS_ADMIN
 ```
-docker run -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --name chrome --cap-add=SYS_ADMIN \
+docker run --init -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222 --name chrome --cap-add=SYS_ADMIN \
   yukinying/chrome-headless-browser
 ```
 
