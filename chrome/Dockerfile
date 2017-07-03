@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -qqy \
   && apt-get -qqy install \
-       gnupg wget ca-certificates apt-transport-https \
+       dumb-init gnupg wget ca-certificates apt-transport-https \
        ttf-wqy-zenhei \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
@@ -26,7 +26,8 @@ RUN useradd headless --shell /bin/bash --create-home \
 
 RUN mkdir /data
 
-ENTRYPOINT ["/usr/bin/google-chrome-unstable", \
+ENTRYPOINT ["/usr/bin/dumb-init", "--", \
+            "/usr/bin/google-chrome-unstable", \
             "--disable-gpu", \
             "--headless", \
             "--remote-debugging-address=0.0.0.0", \
