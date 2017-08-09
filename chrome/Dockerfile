@@ -24,7 +24,9 @@ RUN useradd headless --shell /bin/bash --create-home \
   && echo 'ALL ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers \
   && echo 'headless:nopassword' | chpasswd
 
-RUN mkdir /data
+RUN mkdir /data && chown -R headless:headless /data
+
+USER headless
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--", \
             "/usr/bin/google-chrome-unstable", \
