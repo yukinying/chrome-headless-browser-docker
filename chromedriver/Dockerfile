@@ -14,6 +14,7 @@ RUN mkdir -p /usr/share/man/man1 \
     -t jessie-backports openjdk-8-jre-headless \
     unzip \
     wget \
+    libgconf2-4 \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #==========
