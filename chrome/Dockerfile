@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qqy \
   && apt-get -qqy install \
        dumb-init gnupg wget ca-certificates apt-transport-https \
-       ttf-wqy-zenhei \
+       fonts-noto fonts-noto-color-emoji fonts-noto-cjk-extra \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
