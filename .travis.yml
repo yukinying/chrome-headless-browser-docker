@@ -8,6 +8,7 @@ language: bash
 
 env:
   - REPO=yukinying/chrome-headless-browser DIR=chrome
+  - REPO=yukinying/chrome-headless-browser-xl DIR=chrome-xl
   - REPO=yukinying/chrome-headless-browser-selenium DIR=chromedriver
 
 before_install:
