@@ -2,12 +2,18 @@
 
 [![Build Status](https://travis-ci.org/yukinying/chrome-headless-browser-docker.svg?branch=master)](https://travis-ci.org/yukinying/chrome-headless-browser-docker)
 
-This repository contains two docker builds.
+This repository contains three docker builds.
 
 ## Chrome Headless Browser
 [![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser/tags/)
 
-This docker image contain the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
+This docker image contains the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
+
+## Chrome Headless Browser XL
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser-xl.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser-xl/tags/)
+
+This docker image contains extra fonts thus the image size is much larger.
 
 ## Chrome Headless Browser with Chrome Driver in Selenium
 
