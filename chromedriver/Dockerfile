@@ -7,11 +7,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 
 RUN mkdir -p /usr/share/man/man1 \
-  # && echo "deb https://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list \
-  && echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list \
+  && echo "deb http://http.debian.net/debian stretch-backports main" >> /etc/apt/sources.list.d/stretch-backports.list \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
-    -t jessie-backports openjdk-8-jre-headless \
+    -t stretch-backports openjdk-8-jre-headless \
     unzip \
     wget \
     libgconf2-4 \
@@ -21,7 +20,7 @@ RUN mkdir -p /usr/share/man/man1 \
 # Selenium
 #==========
 RUN  mkdir -p /opt/selenium \
-  && wget --no-verbose https://selenium-release.storage.googleapis.com/3.12/selenium-server-standalone-3.12.0.jar -O /opt/selenium/selenium-server-standalone.jar
+  && wget --no-verbose https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar -O /opt/selenium/selenium-server-standalone.jar
 
 
 #==================
