@@ -8,7 +8,7 @@ USER root
 
 RUN apt-get update -qqy \
   && apt-get -qqy install \
-       fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+       fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 USER headless
