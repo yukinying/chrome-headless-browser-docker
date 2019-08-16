@@ -7,27 +7,26 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 
 RUN mkdir -p /usr/share/man/man1 \
-  && echo "deb http://http.debian.net/debian stretch-backports main" >> /etc/apt/sources.list.d/stretch-backports.list \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
-    -t stretch-backports openjdk-8-jre-headless \
+    openjdk-11-jre-headless \
     unzip \
     wget \
-    libgconf2-4 \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #==========
 # Selenium
 #==========
-RUN  mkdir -p /opt/selenium \
-  && wget --no-verbose https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar -O /opt/selenium/selenium-server-standalone.jar
+RUN SELENIUM_REMOTEPATH=$(wget -q -O - https://selenium-release.storage.googleapis.com | grep -oP '(?<=Key>)[^<]*' | grep selenium-server-standalone | grep -v alpha | sort -Vr | head -1 ) \
+  && mkdir -p /opt/selenium \
+  && wget --no-verbose https://selenium-release.storage.googleapis.com/$SELENIUM_REMOTEPATH -O /opt/selenium/selenium-server-standalone.jar
 
 
 #==================
 # Chrome webdriver
 #==================
-RUN CHROME_DRIVER_VERSION=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
-  && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip \
+RUN CHROME_DRIVER_REMOTEPATH=$(wget -q -O - https://chromedriver.storage.googleapis.com | grep -oP '(?<=Key>)[^<]*' | grep chromedriver_linux64.zip | sort -Vr | head -1 ) \
+  && wget --no-verbose -O /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_REMOTEPATH \
   && rm -rf /opt/selenium/chromedriver \
   && unzip /tmp/chromedriver_linux64.zip -d /opt/selenium \
   && rm /tmp/chromedriver_linux64.zip \
