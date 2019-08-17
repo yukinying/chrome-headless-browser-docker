@@ -21,6 +21,7 @@ script:
   - docker tag $REPO $REPO:latest
   - docker tag $REPO $REPO:$VERSION1
   - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome-unstable $REPO:latest   --headless --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html
+  - test -x $DIR/tests/test.sh && cd $DIR/tests && ./test.sh && cd ../..
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ]; then
