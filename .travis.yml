@@ -14,6 +14,7 @@ env:
 before_install:
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t $REPO $DIR
 
 script:
@@ -25,6 +26,5 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ]; then
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push $REPO;
     fi
