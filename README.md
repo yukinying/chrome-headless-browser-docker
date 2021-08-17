@@ -1,6 +1,6 @@
 # chrome-headless-browser-docker
 
-[![Build Status](https://travis-ci.org/yukinying/chrome-headless-browser-docker.svg?branch=master)](https://travis-ci.org/yukinying/chrome-headless-browser-docker)
+[![Build Status](https://travis-ci.com/yukinying/chrome-headless-browser-docker.svg?branch=master)](https://travis-ci.com/yukinying/chrome-headless-browser-docker)
 
 This repository contains three docker builds.
 
