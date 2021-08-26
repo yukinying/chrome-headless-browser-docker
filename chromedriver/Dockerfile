@@ -17,9 +17,9 @@ RUN mkdir -p /usr/share/man/man1 \
 #==========
 # Selenium
 #==========
-RUN SELENIUM_REMOTEPATH=$(wget -q -O - https://selenium-release.storage.googleapis.com | grep -oP '(?<=Key>)[^<]*' | grep selenium-server-standalone | grep -v alpha | sort -Vr | head -1 ) \
+RUN SELENIUM_REMOTEPATH=$(wget -q -O - https://api.github.com/repos/SeleniumHQ/selenium/releases/latest | grep 'browser_download_url.*selenium-server-standalone' | cut -f4 -d\" | head -1 ) \
   && mkdir -p /opt/selenium \
-  && wget --no-verbose https://selenium-release.storage.googleapis.com/$SELENIUM_REMOTEPATH -O /opt/selenium/selenium-server-standalone.jar
+  && wget --no-verbose $SELENIUM_REMOTEPATH -O /opt/selenium/selenium-server-standalone.jar
 
 
 #==================
