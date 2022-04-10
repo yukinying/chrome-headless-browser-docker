@@ -26,5 +26,6 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ]; then
-    docker push $REPO;
+    docker push $REPO:latest;
+    docker push $REPO:$VERSION1;
     fi
