@@ -47,13 +47,13 @@ after_success:
     echo docker push $REPO-$ARCH:latest;
     echo docker push $REPO-$ARCH:$VERSION1;
     if [ "$ARCH" == "arm64" ]; then
-    echo docker manifest create   $REPO:latest $REPO-amd64:latest $REPO-arm64:latest
-    echo docker manifest annotate $REPO:latest $REPO-amd64:latest --arch amd64
-    echo docker manifest annotate $REPO:latest $REPO-arm64:latest --arch arm64
-    echo docker manifest push     $REPO:latest 
-    echo docker manifest create   $REPO:$VERSION1 $REPO-amd64:$VERSION1 $REPO-arm64:$VERSION1
-    echo docker manifest annotate $REPO:$VERSION1 $REPO-amd64:$VERSION1 --arch amd64
-    echo docker manifest annotate $REPO:$VERSION1 $REPO-arm64:$VERSION1 --arch arm64
-    echo docker manifest push     $REPO:$VERSION1 
+    echo docker manifest create   $REPO:latest $REPO-amd64:latest $REPO-arm64:latest;
+    echo docker manifest annotate $REPO:latest $REPO-amd64:latest --arch amd64;
+    echo docker manifest annotate $REPO:latest $REPO-arm64:latest --arch arm64;
+    echo docker manifest push     $REPO:latest;
+    echo docker manifest create   $REPO:$VERSION1 $REPO-amd64:$VERSION1 $REPO-arm64:$VERSION1;
+    echo docker manifest annotate $REPO:$VERSION1 $REPO-amd64:$VERSION1 --arch amd64;
+    echo docker manifest annotate $REPO:$VERSION1 $REPO-arm64:$VERSION1 --arch arm64;
+    echo docker manifest push     $REPO:$VERSION1;
     fi 
     fi
