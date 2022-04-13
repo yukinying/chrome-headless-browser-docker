@@ -13,10 +13,15 @@ services:
 language: bash
 
 env:
-  - REPO=yukinying/chrome-headless-browser-stable DIR=chrome-stable TARGET=Chromium
-#  - REPO=yukinying/chrome-headless-browser DIR=chrome TARGET=Chrome
+  - REPO=yukinying/chrome-headless-browser-stable DIR=chrome-stable TARGET=Chromium MULTIARCH=1
+  - REPO=yukinying/chrome-headless-browser DIR=chrome TARGET=Chrome
 #  - REPO=yukinying/chrome-headless-browser-xl DIR=chrome-xl TARGET=Chrome
 #  - REPO=yukinying/chrome-headless-browser-selenium DIR=chromedriver TARGET=Chrome
+
+jobs:
+  exclude:
+    - arch: arm64-graviton2
+      env: TARGET=Chrome
 
 before_install:
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
@@ -36,3 +41,7 @@ after_success:
     docker push $REPO:latest;
     docker push $REPO:$VERSION1;
     fi
+    #  - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$MULTIARCH" == "1" ]; then
+    # docker push $REPO-$TRAVIS_CPU_ARCH:latest;
+    # docker push $REPO-$TRAVIS_CPU_ARCH:$VERSION1;
+    # fi
