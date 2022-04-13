@@ -1,9 +1,11 @@
 sudo: required
 group: edge
+dist: focal
+virt: vm
 
 arch:
   - amd64
-  - arm64
+  - arm64-graviton2
 
 services:
   - docker
