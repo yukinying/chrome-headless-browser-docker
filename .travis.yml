@@ -35,8 +35,6 @@ script:
   - docker tag $REPO $REPO:$VERSION1
   - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome $REPO:latest   --headless --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html
   - test -x $DIR/tests/test.sh && cd $DIR/tests && ./test.sh && cd ../..
-
-deploy:
   # Google chrome only have one architecture pre-built.
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chrome" ]; then
     docker push $REPO:latest;
