@@ -1,27 +1,32 @@
 sudo: required
 group: edge
 
+arch:
+  - amd64
+  - arm64
+
 services:
   - docker
 
 language: bash
 
 env:
-  - REPO=yukinying/chrome-headless-browser DIR=chrome
-  - REPO=yukinying/chrome-headless-browser-xl DIR=chrome-xl
-  - REPO=yukinying/chrome-headless-browser-selenium DIR=chromedriver
+  - REPO=yukinying/chrome-headless-browser-stable DIR=chrome-stable
+#  - REPO=yukinying/chrome-headless-browser DIR=chrome
+#  - REPO=yukinying/chrome-headless-browser-xl DIR=chrome-xl
+#  - REPO=yukinying/chrome-headless-browser-selenium DIR=chromedriver
 
 before_install:
-  - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
+  - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t $REPO $DIR
 
 script:
-  - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome-unstable $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
+  - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po '(?<=Google Chrome )[^ ]+'`
   - docker tag $REPO $REPO:latest
   - docker tag $REPO $REPO:$VERSION1
-  - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome-unstable $REPO:latest   --headless --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html
+  - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome $REPO:latest   --headless --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html
   - test -x $DIR/tests/test.sh && cd $DIR/tests && ./test.sh && cd ../..
 
 after_success:
