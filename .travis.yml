@@ -5,7 +5,6 @@ os: linux
 
 arch:
   - amd64
-  - arm64-graviton2
 
 services:
   - docker
@@ -13,15 +12,15 @@ services:
 language: shell
 
 env:
-  - DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium MULTIARCH=1
+  - DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
   - DIR=chrome REPO=yukinying/chrome-headless-browser TARGET=Chrome
 #  - DIR=chrome-xl REPO=yukinying/chrome-headless-browser-xl TARGET=Chrome
 #  - DIR=chromedriver REPO=yukinying/chrome-headless-browser-selenium TARGET=Chrome
 
 jobs:
-  exclude:
+  include:
   - arch: arm64-graviton2
-    env: TARGET=Chrome
+    env: DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
 
 before_install:
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
