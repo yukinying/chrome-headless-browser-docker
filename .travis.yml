@@ -25,6 +25,7 @@ jobs:
 before_install:
   - export ARCH=${TRAVIS_CPU_ARCH/-graviton2/} # remove unnecessary architecture annotation.
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
+  - export VERSION0=${VERSION0:-NONE}
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t $REPO $DIR
