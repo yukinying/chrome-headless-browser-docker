@@ -23,6 +23,7 @@ jobs:
     env: DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
 
 before_install:
+  - export ARCH=${TRAVIS_CPU_ARCH/-graviton2/} # remove unnecessary architecture annotation.
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
   - wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -36,11 +37,26 @@ script:
   - test -x $DIR/tests/test.sh && cd $DIR/tests && ./test.sh && cd ../..
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ]; then
+  # Google chrome only have one architecture pre-built.
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chrome" ]; then
     docker push $REPO:latest;
     docker push $REPO:$VERSION1;
     fi
-    #  - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$MULTIARCH" == "1" ]; then
-    # docker push $REPO-$TRAVIS_CPU_ARCH:latest;
-    # docker push $REPO-$TRAVIS_CPU_ARCH:$VERSION1;
-    # fi
+  # Chromium has multiple architecture pre-built.
+  - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ]; then
+    echo docker push $REPO-$ARCH:latest;
+    echo docker push $REPO-$ARCH:$VERSION1;
+    # run manifest fixing to include multi-architecture. This would be run in the last architecture that we built.
+    if [ "$ARCH" == "arm64" ]; then
+      # latest
+      echo docker manifest create   $REPO:latest $REPO-amd64:latest $REPO-arm64:latest
+      echo docker manifest annotate $REPO:latest $REPO-amd64:latest --arch amd64
+      echo docker manifest annotate $REPO:latest $REPO-arm64:latest --arch arm64
+      echo docker manifest push     $REPO:latest 
+      # version
+      echo docker manifest create   $REPO:$VERSION1 $REPO-amd64:$VERSION1 $REPO-arm64:$VERSION1
+      echo docker manifest annotate $REPO:$VERSION1 $REPO-amd64:$VERSION1 --arch amd64
+      echo docker manifest annotate $REPO:$VERSION1 $REPO-arm64:$VERSION1 --arch arm64
+      echo docker manifest push     $REPO:$VERSION1 
+    fi 
+    fi
