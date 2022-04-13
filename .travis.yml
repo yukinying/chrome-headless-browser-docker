@@ -51,6 +51,7 @@ after_success:
     docker push $REPO-$ARCH:$VERSION1;
     fi 
   # Create manifest in the end
+  - export DOCKER_CLI_EXPERIMENTAL=enabled
   - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ] && [ "$ARCH" == "arm64" ]; then
     docker manifest create   $REPO:latest $REPO-amd64:latest $REPO-arm64:latest;
     docker manifest annotate $REPO:latest $REPO-amd64:latest --arch amd64;
