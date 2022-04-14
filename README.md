@@ -9,6 +9,11 @@ This repository contains three docker builds.
 
 This docker image contains the Linux Dev channel Chromium (https://www.chromium.org/getting-involved/dev-channel), with the required dependencies and the command line argument running headless mode provided.
 
+## Chrome Headless Browser Stable
+[![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser-stable.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser-stable/tags/)
+
+This docker image contains the Debian Chromium (https://wiki.debian.org/Chromium). Since the binary is obtained from Debian channel, it gets updated less frequently. On the other hand, the channel provides both AMD64 and ARM64 based binaries, such that it would work for Apple M1 environment.
+
 ## Chrome Headless Browser XL
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/yukinying/chrome-headless-browser-xl.svg)](https://hub.docker.com/r/yukinying/chrome-headless-browser-xl/tags/)
@@ -34,7 +39,7 @@ docker run --init -it --rm --name chrome --shm-size=1024m -p=127.0.0.1:9222:9222
 To run the container with other options, e.g. `--dump-dom`:
 ```
 docker run --init -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
-  --entrypoint=/usr/bin/google-chrome-unstable \
+  --entrypoint=/usr/bin/google-chrome \
   yukinying/chrome-headless-browser \
   --headless --disable-gpu --dump-dom https://www.facebook.com
 ```
@@ -89,6 +94,10 @@ docker run -it --rm --name node-chrome --link hub:hub --cap-add=SYS_ADMIN \
   -role node -hub http://hub:4444/grid/register \
   -nodeConfig /opt/selenium/config.json
 ```
+
+## Does the image work with Apple M1?
+
+Please use "Chrome Headless Browser Stable" image. 
 
 ## Headless Shell
 

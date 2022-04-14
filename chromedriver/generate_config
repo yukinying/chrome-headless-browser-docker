@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHROME_VERSION=$( dpkg -s google-chrome-unstable | grep Version | cut -d " " -f 2 | cut -d "-" -f 1 )
+CHROME_VERSION=$( dpkg -s google-chrome | grep Version | cut -d " " -f 2 | cut -d "-" -f 1 )
 
 cat <<_EOF
 {

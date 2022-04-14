@@ -29,7 +29,7 @@ RUN mkdir /data && chown -R headless:headless /data
 USER headless
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--", \
-            "/usr/bin/google-chrome-unstable", \
+            "/usr/bin/google-chrome", \
             "--disable-gpu", \
             "--headless", \
             "--disable-dev-shm-usage", \

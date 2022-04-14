@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec google-chrome-unstable --disable-dev-shm-usage --headless --disable-gpu "$@"
+exec google-chrome --disable-dev-shm-usage --headless --disable-gpu "$@"

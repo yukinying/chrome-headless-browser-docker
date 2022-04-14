@@ -14,8 +14,8 @@ language: shell
 env:
   - DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
   - DIR=chrome REPO=yukinying/chrome-headless-browser TARGET=Chrome
-#  - DIR=chrome-xl REPO=yukinying/chrome-headless-browser-xl TARGET=Chrome
-#  - DIR=chromedriver REPO=yukinying/chrome-headless-browser-selenium TARGET=Chrome
+  - DIR=chrome-xl REPO=yukinying/chrome-headless-browser-xl TARGET=Chrome
+  - DIR=chromedriver REPO=yukinying/chrome-headless-browser-selenium TARGET=Chrome
 
 jobs:
   include:
@@ -46,13 +46,13 @@ after_success:
     docker push $REPO:$VERSION1;
     fi
   # Chromium has multiple architecture pre-built.
-  - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ]; then
     docker push $REPO-$ARCH:latest;
     docker push $REPO-$ARCH:$VERSION1;
     fi 
   # Create manifest in the end
   - export DOCKER_CLI_EXPERIMENTAL=enabled
-  - if [ "$TRAVIS_BRANCH" == "stable" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ] && [ "$ARCH" == "arm64" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$VERSION0" != "$VERSION1" ] && [ "$TARGET" == "Chromium" ] && [ "$ARCH" == "arm64" ]; then
     docker manifest rm       $REPO:latest;
     docker manifest create   $REPO:latest $REPO-amd64:latest $REPO-arm64:latest;
     docker manifest annotate $REPO:latest $REPO-amd64:latest --arch amd64;
