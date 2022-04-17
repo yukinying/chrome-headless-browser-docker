@@ -32,6 +32,8 @@ before_install:
 
 script:
   - export VERSION1=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
+  - echo "Version before build = $VERSION0"
+  - echo "Version after build  = $VERSION1"
   - docker tag $REPO $REPO:latest
   - docker tag $REPO $REPO:$VERSION1
   - docker tag $REPO $REPO-$ARCH:latest
