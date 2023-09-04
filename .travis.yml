@@ -1,5 +1,5 @@
 group: edge
-dist: focal
+dist: jammy
 virt: vm
 os: linux
 
