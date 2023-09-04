@@ -1,13 +1,13 @@
 group: edge
-dist: jammy
+dist: focal
 virt: vm
 os: linux
 
 arch:
   - amd64
 
-# services:
-#   - docker
+services:
+  - docker
 
 language: shell
 
