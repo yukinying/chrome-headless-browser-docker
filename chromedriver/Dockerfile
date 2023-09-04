@@ -9,7 +9,7 @@ USER root
 RUN mkdir -p /usr/share/man/man1 \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
-    openjdk-11-jre-headless \
+    openjdk-17-jre-headless \
     unzip \
     wget \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
