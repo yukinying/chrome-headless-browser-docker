@@ -28,11 +28,14 @@ jobs:
     env: DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
 
 before_install:
-  # install latest docker
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  # update libseccomp
+  - sudo apt-get update 
+  - sudo apt-get -y install libseccomp
+  # # install latest docker
+  # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  # - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  # - sudo apt-get update
+  # - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   # collect data from previous image
   - export ARCH=${TRAVIS_CPU_ARCH/-graviton2/} # remove unnecessary architecture annotation.
   - export VERSION0=`docker run --name chrome --rm --entrypoint=/usr/bin/google-chrome $REPO --version | grep -Po "(?<=$TARGET )[^ ]+"`
