@@ -11,6 +11,11 @@ services:
 
 language: shell
 
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 env:
   - DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
   - DIR=chrome REPO=yukinying/chrome-headless-browser TARGET=Chrome
