@@ -13,9 +13,13 @@ language: shell
 
 addons:
   apt:
+    update: true
+    sources:
+      - sourceline: 'deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable'
+        key_url: 'https://download.docker.com/linux/ubuntu/gpg'
     packages:
       - docker-ce
-    update: true
+      - docker-ce-cli
 
 env:
   - DIR=chrome-stable REPO=yukinying/chrome-headless-browser-stable TARGET=Chromium
