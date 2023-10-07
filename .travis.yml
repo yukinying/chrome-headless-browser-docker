@@ -58,7 +58,7 @@ script:
   - docker tag $REPO $REPO:$VERSION1
   - docker tag $REPO $REPO-$ARCH:latest
   - docker tag $REPO $REPO-$ARCH:$VERSION1
-  - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome $REPO:latest   --headless --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html | grep "The World Wide Web project"
+  - docker run --init -it --rm --name chrome --cap-add=SYS_ADMIN --entrypoint=/usr/bin/google-chrome $REPO:latest   --headless=new --disable-dev-shm-usage --disable-gpu --dump-dom http://info.cern.ch/hypertext/WWW/TheProject.html | grep "The World Wide Web project"
   - test -x $DIR/tests/test.sh && cd $DIR/tests && ./test.sh && cd ../..
   - ./push.sh
 

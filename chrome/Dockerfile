@@ -31,7 +31,7 @@ USER headless
 ENTRYPOINT ["/usr/bin/dumb-init", "--", \
             "/usr/bin/google-chrome", \
             "--disable-gpu", \
-            "--headless", \
+            "--headless=new", \
             "--disable-dev-shm-usage", \
             "--remote-debugging-address=0.0.0.0", \
             "--remote-debugging-port=9222", \

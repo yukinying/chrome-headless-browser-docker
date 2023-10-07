@@ -41,7 +41,7 @@ To run the container with other options, e.g. `--dump-dom`:
 docker run --init -it --rm --name chrome --shm-size=1024m --cap-add=SYS_ADMIN \
   --entrypoint=/usr/bin/google-chrome \
   yukinying/chrome-headless-browser \
-  --headless --disable-gpu --dump-dom https://www.facebook.com
+  --headless=new --disable-gpu --dump-dom https://www.facebook.com
 ```
 
 See the following sections for alternate ways to start the container.
@@ -101,4 +101,4 @@ Please use "Chrome Headless Browser Stable" image.
 
 ## Headless Shell
 
-If you would like to use `headless_shell` instead of `chrome --headless` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build.
+If you would like to use `headless_shell` instead of `chrome --headless=new` in Docker, please check out https://github.com/yukinying/chrome-headless-travis-build.
