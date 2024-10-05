@@ -9,7 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qqy \
   && apt-get -qqy install \
        dumb-init gnupg wget ca-certificates apt-transport-https \
-       ttf-wqy-zenhei \
+       ttf-wqy-zenhei socat \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -26,13 +26,8 @@ RUN useradd headless --shell /bin/bash --create-home \
 
 RUN mkdir /data && chown -R headless:headless /data
 
+ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 USER headless
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--", \
-            "/usr/bin/google-chrome", \
-            "--disable-gpu", \
-            "--headless", \
-            "--disable-dev-shm-usage", \
-            "--remote-debugging-address=0.0.0.0", \
-            "--remote-debugging-port=9222", \
-            "--user-data-dir=/data"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--", "/entrypoint.sh"]
